@@ -16,10 +16,14 @@ export class CustomResponse {
 }
 
 export class CustomError extends CustomResponse {
-    public original: Error | undefined;
+    public original: Error | CustomError | undefined;
 
-    constructor(status: number, message: string, originalError?: Error) {
+    constructor(status: number, message: string, originalError?: Error | CustomError) {
         super(status, message);
+        if (originalError instanceof CustomError) {
+            this.status = originalError.status;
+            this.message = originalError.message;
+        }
         this.original = originalError;
     }
 }

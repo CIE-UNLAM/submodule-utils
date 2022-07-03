@@ -1,7 +1,8 @@
 import { DocType } from "../models/users";
-import { GuestDTO, GuestService } from "../services/guest";
+import { GuestService } from "../services/guest";
 import { UserService } from "../services/user";
 import { Role } from "./session";
+import {GuestDTO} from "../models/guest";
 
 export class InitialData {
 
