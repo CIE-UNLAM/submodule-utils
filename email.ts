@@ -1,5 +1,5 @@
 import { Client } from "@sendgrid/client";
-import SendGrid = require("@sendgrid/mail");
+import SendGrid from '@sendgrid/mail';
 SendGrid.setClient(new Client());
 SendGrid.setApiKey(process.env.SENDGRID_API_KEY || "")
 
