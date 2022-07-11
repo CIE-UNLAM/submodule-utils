@@ -1,5 +1,5 @@
 import {Session} from "./session";
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {CustomError} from "./http-response";
 
 export class API {
@@ -12,6 +12,19 @@ export class API {
 
     get(path: string, query_params: Map<string, string> = new Map<string, string>()): Promise<any> {
         return axios.get(this.prepareURL(path, query_params)).then(response => {
+            return response;
+        }).catch(err => {
+            if (axios.isAxiosError(err) && err.response) {
+                let local = <CustomError>err.response.data;
+                throw new CustomError(local.status, local.message);
+            } else {
+                throw err;
+            }
+        });
+    }
+
+    post(path: string, body: any, query_params: Map<string, string> = new Map<string, string>()): Promise<any> {
+        return axios.post(this.prepareURL(path, query_params), body).then(response => {
             return response;
         }).catch(err => {
             if (axios.isAxiosError(err) && err.response) {
@@ -36,6 +49,13 @@ export class API {
 export class UsersAPI extends API {
     constructor(sess: Session) {
         let baseURL = process.env.USERS_SERVICE || '';
+        super(sess, baseURL);
+    }
+}
+
+export class WebAPI extends API {
+    constructor(sess: Session) {
+        let baseURL = process.env.WEB_SERVICE || '';
         super(sess, baseURL);
     }
 }
