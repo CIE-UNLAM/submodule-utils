@@ -12,7 +12,7 @@ export class API {
 
     get(path: string, query_params: Map<string, string> = new Map<string, string>()): Promise<any> {
         return axios.get(this.prepareURL(path, query_params)).then(response => {
-            return response;
+            return response.data;
         }).catch(err => {
             if (axios.isAxiosError(err) && err.response) {
                 let local = <CustomError>err.response.data;
@@ -25,7 +25,7 @@ export class API {
 
     post(path: string, body: any, query_params: Map<string, string> = new Map<string, string>()): Promise<any> {
         return axios.post(this.prepareURL(path, query_params), body).then(response => {
-            return response;
+            return response.data;
         }).catch(err => {
             if (axios.isAxiosError(err) && err.response) {
                 let local = <CustomError>err.response.data;
@@ -38,7 +38,7 @@ export class API {
 
     private prepareURL(path: string, query_params: Map<string, string>): string {
         let ret = `${this.baseURL}${path}`;
-        ret = ret.concat(`?this.access_token=${this.session.access_token}`);
+        ret = ret.concat(`?access_token=${this.session.access_token}`);
         query_params.forEach((v, k) => {
             ret = ret.concat(`&${k}=${v}`);
         });
