@@ -16,7 +16,7 @@ export class API {
         }).catch(err => {
             if (axios.isAxiosError(err) && err.response) {
                 let local = <CustomError>err.response.data;
-                throw new CustomError(local.status, local.message);
+                throw new CustomError(local.status, `HTTP GET request error ${path}: ${local.message}`);
             } else {
                 throw err;
             }
@@ -29,7 +29,7 @@ export class API {
         }).catch(err => {
             if (axios.isAxiosError(err) && err.response) {
                 let local = <CustomError>err.response.data;
-                throw new CustomError(local.status, local.message);
+                throw new CustomError(local.status, `HTTP POST request error ${path}: ${local.message}`);
             } else {
                 throw err;
             }
