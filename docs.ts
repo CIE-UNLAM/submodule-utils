@@ -8,9 +8,9 @@ export class DocumentationManager {
         definition: {
             openapi: "3.0.0",
             info: {
-                title: "Server-Users API",
+                title: process.env.DOC_TITLE,
                 version: "1.0.0",
-                description: "Aplicacion que sirve la autenticación y administración de usuarios"
+                description: process.env.DOC_DESCRIPTION
             },
             servers: [{
                 url: process.env.SERVER_URL_DOCS
