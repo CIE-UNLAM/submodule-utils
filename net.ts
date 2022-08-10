@@ -5,6 +5,7 @@ import {CustomError} from "./http-response";
 export class API {
     private session: Session;
     protected baseURL: string;
+
     constructor(sess: Session, baseURL: string) {
         this.session = sess;
         this.baseURL = baseURL;
@@ -28,6 +29,22 @@ export class API {
 
     post(path: string, body: any, query_params: Map<string, string> = new Map<string, string>()): Promise<any> {
         return axios.post(this.prepareURL(path, query_params), body).then(response => {
+            return response.data;
+        }).catch(err => {
+            if (axios.isAxiosError(err) && err.response) {
+                let local = <CustomError>err.response.data;
+                if (!local.status || !local.message) {
+                    throw err;
+                }
+                throw new CustomError(local.status, `HTTP POST request error ${path}: ${local.message}`);
+            } else {
+                throw err;
+            }
+        });
+    }
+
+    put(path: string, body: any, query_params: Map<string, string> = new Map<string, string>()): Promise<any> {
+        return axios.put(this.prepareURL(path, query_params), body).then(response => {
             return response.data;
         }).catch(err => {
             if (axios.isAxiosError(err) && err.response) {
