@@ -63,6 +63,7 @@ export class InitialData {
                 birthDate: new Date(),
                 role: [Role.PG],
                 FUM: new Date(),
+                gender: 'mujer'
             },
         ];
     }
