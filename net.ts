@@ -82,3 +82,10 @@ export class WebAPI extends API {
         super(sess, baseURL);
     }
 }
+
+export class NotificationsAPI extends API {
+    constructor(sess: Session) {
+        let baseURL = process.env.NOTIFICATIONS_SERVICE || '';
+        super(sess, baseURL);
+    }
+}
