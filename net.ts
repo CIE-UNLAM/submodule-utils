@@ -3,10 +3,10 @@ import axios from "axios";
 import {CustomError} from "./http-response";
 
 export class API {
-    private session: Session;
+    private readonly session: Session | undefined;
     protected baseURL: string;
 
-    constructor(sess: Session, baseURL: string) {
+    constructor(sess: Session | undefined, baseURL: string) {
         this.session = sess;
         this.baseURL = baseURL;
     }
@@ -61,7 +61,9 @@ export class API {
 
     private prepareURL(path: string, query_params: Map<string, string>): string {
         let ret = `${this.baseURL}${path}`;
-        ret = ret.concat(`?access_token=${this.session.access_token}`);
+        if (this.session) {
+            ret = ret.concat(`?access_token=${this.session.access_token}`);
+        }
         query_params.forEach((v, k) => {
             ret = ret.concat(`&${k}=${v}`);
         });
@@ -76,9 +78,23 @@ export class UsersAPI extends API {
     }
 }
 
+export class UsersAPIWithoutSession extends API {
+    constructor() {
+        let baseURL = process.env.USERS_SERVICE || '';
+        super(undefined, baseURL);
+    }
+}
+
 export class WebAPI extends API {
     constructor(sess: Session) {
         let baseURL = process.env.WEB_SERVICE || '';
+        super(sess, baseURL);
+    }
+}
+
+export class MobileAPI extends API {
+    constructor(sess: Session) {
+        let baseURL = process.env.MOBILE_SERVICE || '';
         super(sess, baseURL);
     }
 }
