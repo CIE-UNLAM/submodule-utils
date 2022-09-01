@@ -20,6 +20,7 @@ export class FCM {
       credential: applicationDefault(),
       //   databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
     });
+    console.log("FCM initialized");
   }
 
   public static async sendPushNotification(
