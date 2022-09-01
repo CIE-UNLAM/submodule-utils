@@ -1,33 +1,44 @@
-import { applicationDefault, initializeApp } from 'firebase-admin/app';
-import fireabaseAdmin from 'firebase-admin';
-import { Message } from 'firebase-admin/lib/messaging/messaging-api';
+import { App, applicationDefault, initializeApp } from "firebase-admin/app";
+import fireabaseAdmin from "firebase-admin";
+import { Message } from "firebase-admin/lib/messaging/messaging-api";
 
 /**
  * Firebase Cloud Messaging
  */
 export class FCM {
-  constructor() {
-    initializeApp({
+  private static instance: App;
+
+  static getInstance() {
+    if (!FCM.instance) {
+      FCM.init();
+    }
+    return FCM.instance;
+  }
+
+  public static init() {
+    FCM.instance = initializeApp({
       credential: applicationDefault(),
-    //   databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
+      //   databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
     });
   }
 
-  async sendNotification(
+  public static async sendPushNotification(
     title: string,
     body: string,
-    token: string,
-    data?: any,
-  ): Promise<void> {
+    device_token: string,
+  ): Promise<string> {
+    if (!FCM.getInstance()) {
+        throw 'FCM not initialized';
+    }
+
     const message: Message = {
       notification: {
         title,
         body,
       },
-      token,
-      data,
+      token: device_token,
     };
 
-    await fireabaseAdmin.messaging().send(message);
+    return fireabaseAdmin.messaging().send(message);
   }
 }
