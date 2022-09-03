@@ -1,22 +1,52 @@
 import {randomUUID} from "crypto";
 import {User} from "../models/users";
 import {UsersAPIWithoutSession} from "./net";
+import {RedisClientManager} from "./redis-manager";
+import {CustomError} from "./http-response";
+import httpStatus from "http-status-codes";
+
+let SECONDS_IN_WEEK = 604800;
 
 export class SessionManager {
-    static sessions = new Map<String, Session>();
+    private static client = RedisClientManager.getInstance();
 
-    static getSession(access_token: string) {
-        return this.sessions.get(access_token);
+    static async getSession(access_token: string) {
+        let session;
+        const data = await this.client.get(access_token);
+
+        if (data != null) {
+            session = JSON.parse(data);
+        } else {
+            new CustomError(httpStatus.UNAUTHORIZED, 'Session not found');
+        }
+
+        return session;
     }
 
-    static addSession(user: User): Session {
+    static async addSession(user: User): Promise<Session> {
         let s = new Session(user);
-        this.sessions.set(s.access_token, s);
+        let ttl = this.isPatient(s) ? -1: SECONDS_IN_WEEK;
+        await this.client.set(s.access_token, JSON.stringify(s), {EX: ttl} );
+
         return s;
     }
 
-    static deleteSession(access_token: string): boolean {
-        return this.sessions.delete(access_token);
+    static async deleteSession(access_token: string): Promise<boolean> {
+        const data = await this.client.get(access_token);
+
+        if (data != null) {
+            this.client.del(access_token).then(r => {
+                if (r != 1) {
+                    throw new CustomError(httpStatus.INTERNAL_SERVER_ERROR, 'No se pudo borrar la sesion');
+                }
+            });
+        }
+
+        return true;
+    }
+
+    private static isPatient(s: Session) {
+        return s.role.includes(Role.PG);
     }
 }
 
