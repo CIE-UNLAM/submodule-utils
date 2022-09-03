@@ -35,7 +35,7 @@ export class SessionManager {
         const data = await this.client.get(access_token);
 
         if (data != null) {
-            this.client.del(access_token).then(r => {
+            this.client.del(access_token).then((r: number)  => {
                 if (r != 1) {
                     throw new CustomError(httpStatus.INTERNAL_SERVER_ERROR, 'No se pudo borrar la sesion');
                 }
