@@ -26,7 +26,7 @@ export class FCM {
   public static async sendPushNotification(
     title: string,
     body: string,
-    device_token: string,
+    deviceToken: string,
   ): Promise<string> {
     if (!FCM.getInstance()) {
         throw 'FCM not initialized';
@@ -37,7 +37,7 @@ export class FCM {
         title,
         body,
       },
-      token: device_token,
+      token: deviceToken,
     };
 
     return fireabaseAdmin.messaging().send(message);
