@@ -18,7 +18,6 @@ export class FCM {
   public static init() {
     FCM.instance = initializeApp({
       credential: applicationDefault(),
-      //   databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
     });
     console.log("FCM initialized");
   }
@@ -26,18 +25,25 @@ export class FCM {
   public static async sendPushNotification(
     title: string,
     body: string,
-    device_token: string,
-  ): Promise<string> {
+    device_token: string
+  ): Promise<any> {
     if (!FCM.getInstance()) {
-        throw 'FCM not initialized';
+      throw "FCM not initialized";
     }
 
     const message: Message = {
       notification: {
         title,
         body,
+        imageUrl:
+          "https://firebasestorage.googleapis.com/v0/b/cie-develop.appspot.com/o/CRIE-icon.png?alt=media",
       },
       token: device_token,
+      android: {
+        notification: {
+          icon: "@mipmap/ic_launcher_foreground",
+        },
+      },
     };
 
     return fireabaseAdmin.messaging().send(message);
