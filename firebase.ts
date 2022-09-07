@@ -35,8 +35,7 @@ export class FCM {
       notification: {
         title,
         body,
-        imageUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cie-develop.appspot.com/o/CRIE-icon.png?alt=media",
+        imageUrl: process.env.DEFAULT_ICON_FIREBASE_URL,
       },
       token: device_token,
       android: {
