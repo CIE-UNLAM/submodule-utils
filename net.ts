@@ -20,7 +20,7 @@ export class API {
                 if (!local.status || !local.message) {
                     throw err;
                 }
-                throw new CustomError(local.status, `HTTP GET request error ${path}: ${local.message}`);
+                throw new CustomError(local.status, `Error en la solicitud GET ${path}: ${local.message}`);
             } else {
                 throw err;
             }
@@ -36,7 +36,7 @@ export class API {
                 if (!local.status || !local.message) {
                     throw err;
                 }
-                throw new CustomError(local.status, `HTTP POST request error ${path}: ${local.message}`);
+                throw new CustomError(local.status, `Error en la solicitud POST ${path}: ${local.message}`);
             } else {
                 throw err;
             }
@@ -52,7 +52,7 @@ export class API {
                 if (!local.status || !local.message) {
                     throw err;
                 }
-                throw new CustomError(local.status, `HTTP POST request error ${path}: ${local.message}`);
+                throw new CustomError(local.status, `Error en la solicitud POST ${path}: ${local.message}`);
             } else {
                 throw err;
             }
