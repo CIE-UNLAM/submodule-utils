@@ -18,7 +18,6 @@ export class FCM {
   public static init() {
     FCM.instance = initializeApp({
       credential: applicationDefault(),
-      //   databaseURL: 'https://<DATABASE_NAME>.firebaseio.com',
     });
     console.log("FCM initialized");
   }
@@ -29,15 +28,21 @@ export class FCM {
     deviceToken: string,
   ): Promise<string> {
     if (!FCM.getInstance()) {
-        throw 'FCM not initialized';
+      throw "FCM not initialized";
     }
 
     const message: Message = {
       notification: {
         title,
         body,
+        imageUrl: process.env.DEFAULT_ICON_FIREBASE_URL,
       },
       token: deviceToken,
+      android: {
+        notification: {
+          icon: "@mipmap/ic_launcher_foreground",
+        },
+      },
     };
 
     return fireabaseAdmin.messaging().send(message);
