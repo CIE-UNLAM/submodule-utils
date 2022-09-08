@@ -25,8 +25,8 @@ export class FCM {
   public static async sendPushNotification(
     title: string,
     body: string,
-    device_token: string
-  ): Promise<any> {
+    deviceToken: string,
+  ): Promise<string> {
     if (!FCM.getInstance()) {
       throw "FCM not initialized";
     }
@@ -37,7 +37,7 @@ export class FCM {
         body,
         imageUrl: process.env.DEFAULT_ICON_FIREBASE_URL,
       },
-      token: device_token,
+      token: deviceToken,
       android: {
         notification: {
           icon: "@mipmap/ic_launcher_foreground",
