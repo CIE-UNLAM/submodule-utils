@@ -23,7 +23,7 @@ export class SessionManager {
 export async function getRootSession(): Promise<Session> {
     const api = new UsersAPIWithoutSession();
     if (process.env.CLIENT_ID_ROOT && process.env.SECRET_KEY_ROOT) {
-        return <Session>await api.get(`/api/1/auth/token?clientID=${process.env.CLIENT_ID_ROOT}&secretKey=${process.env.SECRET_KEY_ROOT}`);
+        return <Session>await api.get(`auth/token?clientID=${process.env.CLIENT_ID_ROOT}&secretKey=${process.env.SECRET_KEY_ROOT}`);
     } else {
         throw 'root credentials are not set'
     }
