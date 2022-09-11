@@ -26,7 +26,7 @@ export class FCM {
     title: string,
     body: string,
     device_token: string
-  ): Promise<any> {
+  ): Promise<string> {
     if (!FCM.getInstance()) {
       throw "FCM not initialized";
     }
@@ -36,7 +36,7 @@ export class FCM {
         title,
         body,
         imageUrl:
-          "https://firebasestorage.googleapis.com/v0/b/cie-develop.appspot.com/o/CRIE-icon.png?alt=media",
+          process.env.DEFAULT_ICON_FIREBASE_URL,
       },
       token: device_token,
       android: {
