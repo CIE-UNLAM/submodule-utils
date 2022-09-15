@@ -59,7 +59,7 @@ export class SessionManager {
     }
 
     private static isStaff(s: Session) {
-        return s.role.includes(Role.GDP, Role.OBSTETRICIA, Role.GERENCIA, Role.REDES, Role.ADMIN);
+        return s.role.some(e => [Role.GDP, Role.OBSTETRICIA, Role.GERENCIA, Role.REDES, Role.ADMIN].includes(e)):
     }
 
     private static isRoot(s: Session) {
