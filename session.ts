@@ -47,7 +47,7 @@ export class SessionManager {
         if(this.isRoot(s))
             return process.env.ROOT_REDIS_TTL;
         if(this.isPatient(s))
-            return process.env.PATIENT_REDIS_TTL;
+            return null; // Solo con EX: <vacio> se pude dejar en infinito un user
         if(this.isStaff(s))
             return process.env.STAFF_REDIS_TTL;
 
