@@ -5,8 +5,6 @@ import {RedisClientManager} from "./redis-manager";
 import {CustomError} from "./http-response";
 import httpStatus from "http-status-codes";
 
-let SECONDS_IN_WEEK = 604800;
-
 export class SessionManager {
     private static client = RedisClientManager.getInstance();
 
@@ -25,7 +23,7 @@ export class SessionManager {
 
     static async addSession(user: User): Promise<Session> {
         let s = new Session(user);
-        let ttl = SessionManager.getRoleTTL(s);
+        let ttl = <number> SessionManager.getRoleTTL(s);
         await this.client.set(s.access_token, JSON.stringify(s), {EX: ttl} );
 
         return s;
