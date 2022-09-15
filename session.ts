@@ -43,7 +43,7 @@ export class SessionManager {
         return true;
     }
 
-    private static getRoleTTL(s: Session) : number {
+    private static getRoleTTL(s: Session) {
         if(this.isRoot(s))
             return process.env.ROOT_REDIS_TTL;
         if(this.isPatient(s))
