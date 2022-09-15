@@ -58,7 +58,7 @@ export class WebSocketServerManager {
 export class WebSocketServerWebService {
     public static ALERTS_DASHBOARD_PATTERN: string = 'ALERTS_DASHBOARD_'
     constructor(httpServer: http.Server) {
-        let wsAlertsDashboard = new WebSocket.Server({noServer: true, path: '/api/1/patient-history/refresh/ws'});
+        let wsAlertsDashboard = new WebSocket.Server({noServer: true, path: '/api/1/web/patient-history/refresh/ws'});
 
         httpServer.on('upgrade', (request, socket, head) => {
             wsAlertsDashboard.handleUpgrade(request, socket, head, (websocket) => {
