@@ -25,7 +25,7 @@ export class SessionManager {
 
     static async addSession(user: User): Promise<Session> {
         let s = new Session(user);
-        let ttl = this.isPatient(s) ? -1: SECONDS_IN_WEEK;
+        let ttl = SessionManager.getRoleTTL(s);
         await this.client.set(s.access_token, JSON.stringify(s), {EX: ttl} );
 
         return s;
@@ -45,8 +45,25 @@ export class SessionManager {
         return true;
     }
 
+    private static getRoleTTL(s: Session) {
+        if(this.isRoot(s))
+            return process.env.ROOT_REDIS_TTL;
+        if(this.isPatient(s))
+            return process.env.PATIENT_REDIS_TTL;
+        if(this.isStaff(s))
+            return process.env.STAFF_REDIS_TTL;
+    }
+
     private static isPatient(s: Session) {
         return s.role.includes(Role.PG);
+    }
+
+    private static isStaff(s: Session) {
+        return s.role.includes(Role.GDP, Role.OBSTETRICIA, Role.GERENCIA, Role.REDES, Role.ADMIN);
+    }
+
+    private static isRoot(s: Session) {
+        return s.role.includes(Role.ROOT);
     }
 }
 
