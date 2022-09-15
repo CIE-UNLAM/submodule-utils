@@ -45,13 +45,15 @@ export class SessionManager {
         return true;
     }
 
-    private static getRoleTTL(s: Session) {
+    private static getRoleTTL(s: Session) : number {
         if(this.isRoot(s))
             return process.env.ROOT_REDIS_TTL;
         if(this.isPatient(s))
             return process.env.PATIENT_REDIS_TTL;
         if(this.isStaff(s))
             return process.env.STAFF_REDIS_TTL;
+
+        return 300; // 5 minutos por default como failsafe
     }
 
     private static isPatient(s: Session) {
