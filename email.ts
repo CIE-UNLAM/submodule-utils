@@ -1,7 +1,6 @@
 import nodemailer from 'nodemailer';
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 
-// Create reusable transporter object using the default SMTP transport
 let transporter = nodemailer.createTransport({
     host: process.env.SPARKPOST_HOST,
     port: process.env.SPARKPOST_PORT || 0,
@@ -14,10 +13,9 @@ let transporter = nodemailer.createTransport({
 
 export class EmailManager {
     async send(input: Email): Promise<boolean> {
-        // send mail with defined transport object
         return await transporter.sendMail({
-            from: `"Hospital Favaloro" <${input.from}>`, // sender address
-            to: input.to,           // list of receivers
+            from: `"Hospital Favaloro" <${input.from}>`,
+            to: input.to, // list of receivers
             subject: input.subject,
             text: input.text,
             html: input.html,
