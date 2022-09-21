@@ -1,20 +1,20 @@
 import { Client } from "@sendgrid/client";
 import SendGrid from '@sendgrid/mail';
 import nodemailer from 'nodemailer';
+import SMTPTransport from "nodemailer/lib/smtp-transport";
 SendGrid.setClient(new Client());
 SendGrid.setApiKey(process.env.SENDGRID_API_KEY || "")
 
 // create reusable transporter object using the default SMTP transport
-// @ts-ignore
 let transporter = nodemailer.createTransport({
     host: process.env.SPARKPOST_HOST,
-    port: process.env.SPARKPOST_PORT,
+    port: process.env.SPARKPOST_PORT || 0,
     secure: false, // true for 465, false for other ports
     auth: {
-        user: process.env.SPARKPOST_USERNAME, // generated ethereal user
-        pass: process.env.SPARKPOST_PASSWORD, // generated ethereal password
+        user: process.env.SPARKPOST_USERNAME || "", // generated ethereal user
+        pass: process.env.SPARKPOST_PASSWORD || "", // generated ethereal password
     },
-});
+} as SMTPTransport.Options);
 
 export class EmailManager {
     async send(input: Email): Promise<boolean> {
