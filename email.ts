@@ -5,6 +5,7 @@ SendGrid.setClient(new Client());
 SendGrid.setApiKey(process.env.SENDGRID_API_KEY || "")
 
 // create reusable transporter object using the default SMTP transport
+// @ts-ignore
 let transporter = nodemailer.createTransport({
     host: process.env.SPARKPOST_HOST,
     port: process.env.SPARKPOST_PORT,
