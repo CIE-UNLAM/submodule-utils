@@ -1,16 +1,30 @@
-import { Client } from "@sendgrid/client";
-import SendGrid from '@sendgrid/mail';
-SendGrid.setClient(new Client());
-SendGrid.setApiKey(process.env.SENDGRID_API_KEY || "")
+import nodemailer from 'nodemailer';
+import SMTPTransport from "nodemailer/lib/smtp-transport";
+
+let transporter = nodemailer.createTransport({
+    host: process.env.SPARKPOST_HOST,
+    port: process.env.SPARKPOST_PORT || 0,
+    secure: false, // true for 465, false for other ports
+    auth: {
+        user: process.env.SPARKPOST_USERNAME || "",
+        pass: process.env.SPARKPOST_PASSWORD || "",
+    },
+} as SMTPTransport.Options);
 
 export class EmailManager {
-    send(input: Email): Promise<boolean> {
-        return SendGrid.send(input).then(_ => {
-            return true
+    async send(input: Email): Promise<boolean> {
+        return await transporter.sendMail({
+            from: `"Hospital Favaloro" <${input.from}>`,
+            to: input.to, // list of receivers
+            subject: input.subject,
+            text: input.text,
+            html: input.html,
+        }).then(_ => {
+            return true;
         }).catch((err) => {
             console.log(err)
             throw err
-        })
+        });
     }
 }
 
