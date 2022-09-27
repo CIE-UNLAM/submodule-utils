@@ -69,9 +69,7 @@ export class EmailRecovery extends Email {
                                 </tr>
                                 <tr>
                                     <td style="padding:7% 0;text-align:center;background-color:#F1F5F8;">
-                                        <image width="25%" height="auto"
-                                            src="https://crie.unlam.edu.ar/static/media/icon-gestar.eea6d78549107f11598a.png"
-                                            style="max-width: 150px;" />
+                                        <img width="25%" src="https://crie.unlam.edu.ar/static/media/icon-gestar.eea6d78549107f11598a.png" alt="Gest.ar" style="max-width: 150px;" />
                                         <p style="color:#0E5E88;font-weight: 600;font-size:12pt;margin-top: 5px;">
                                             <svg width="25%" height="auto" viewBox="0 0 227 49" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg" style="max-width: 150px;">
@@ -112,9 +110,7 @@ export class EmailWelcome extends Email {
                                 </tr>
                                 <tr>
                                     <td style="padding:7% 0;text-align:center;background-color:#F1F5F8;">
-                                        <image width="25%" height="auto"
-                                            src="https://crie.unlam.edu.ar/static/media/icon-gestar.eea6d78549107f11598a.png"
-                                            style="max-width: 150px;" />
+                                        <img width="25%" src="https://crie.unlam.edu.ar/static/media/icon-gestar.eea6d78549107f11598a.png" alt="Gest.ar" style="max-width: 150px;" />
                                         <p style="color:#0E5E88;font-weight: 600;font-size:12pt;margin-top: 5px;">
                                             <svg width="25%" height="auto" viewBox="0 0 227 49" fill="none"
                                                 xmlns="http://www.w3.org/2000/svg" style="max-width: 150px;">
