@@ -60,7 +60,7 @@ export class EmailRecovery extends Email {
                                 <tr>
                                     <td style="padding:5%;color:#707070;font-family:Arial;font-size:10pt;border-spacing:0px;background-color:#F1F5F8;"
                                         valign="top">
-                                        <p> Hola ${fullName}</p>
+                                        <p> Hola ${fullName}:</p>
                                         <p>
                                             Para recuperar tu contraseña, ingresa el siguiente código en la aplicación:
                                             <span style="color:#0E5E88;font-weight:bold">${code}</span>
@@ -108,7 +108,9 @@ export class EmailWelcome extends Email {
                                 <tr>
                                     <td style="padding:5%;color:#707070;font-family:Arial;font-size:10pt;border-spacing:0px;border-radius: 0px 0px 16px 16px;background-color:#F1F5F8;"
                                         valign="top">
-                                        <p></p>
+                                        <p>Te damos la bienvenida al programa de Control Remoto Integral del Embarazo (CRIE) del hospital Dr. René Favaloro. 
+                                            Tu participación activa en esto es muy importante y queremos contarte que estamos cuidándote a vos y a tu beba/e.
+                                            Esta aplicación no reemplaza los controles presenciales, sino que buscan darte información elaborada especialmente por nuestro equipo de profesionales sobre el estado de tu gestación y hacer un seguimiento mediante los reportes semanales que debes completar de manera periódica y que puedas recibir a partir de ello recomendaciones y alertas sobre situaciones que requieran que asistas a una guardia</p>
                                     </td>
                                 </tr>
                             </tbody>
