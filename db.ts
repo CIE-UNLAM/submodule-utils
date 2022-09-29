@@ -15,7 +15,7 @@ export class DBManager {
         // https://sequelize.org/docs/v6/getting-started/
         if (!this.session) {
             const url = process.env.DATABASE_URL || "";
-            let sess = new Sequelize(url, {logging: true, timezone: '-03:00', dialectOptions: {useUTC: false}});
+            let sess = new Sequelize(url, {logging: true});
             console.log("connecting to " + process.env.DATABASE_URL);
             this.session = sess;
         }
