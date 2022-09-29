@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import {Sequelize} from 'sequelize';
 import 'dotenv/config';
 
 export class DBManager {
@@ -15,13 +15,14 @@ export class DBManager {
         // https://sequelize.org/docs/v6/getting-started/
         if (!this.session) {
             const url = process.env.DATABASE_URL || "";
-            let sess = new Sequelize(url, { logging: true });
+            let sess = new Sequelize(url, {logging: true, timezone: '-03:00', dialectOptions: {useUTC: false}});
             console.log("connecting to " + process.env.DATABASE_URL);
             this.session = sess;
         }
     }
 
-    static async validateDB(sync = true, afterSync: () => void = () => { }) {
+    static async validateDB(sync = true, afterSync: () => void = () => {
+    }) {
         if (!this.session) {
             this.initDB();
         }
@@ -38,9 +39,10 @@ export class DBManager {
         }
     }
 
-    private static syncDB(afterSync: () => void = () => { }) {
+    private static syncDB(afterSync: () => void = () => {
+    }) {
         if (this.session) {
-            this.session.sync({ alter: true }).then(ret => {
+            this.session.sync({alter: true}).then(ret => {
                 console.log('db was sync correct!');
                 afterSync();
             });
