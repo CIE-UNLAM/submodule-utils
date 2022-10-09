@@ -117,7 +117,7 @@ export class EmailWelcome extends Email {
                                 </tr>
                             </tbody>
                         </table>
-                       <p style:"font-size:8pt;color:grey">${no_reply_footer}</p>
+                       <p style:"font-size:6pt;color:lightgrey">${no_reply_footer}</p>
                     </body>`;
         super(to, subject, '', html);
     }
