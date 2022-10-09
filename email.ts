@@ -84,6 +84,7 @@ export class EmailRecovery extends Email {
                                     </td>
                                 </tr>
                             </tbody>
+                            <p style="font-size:8pt;color:lightgrey">${no_reply_footer}</p>
                         </table>
                     </body>`;
         super(to, subject, '', html);
@@ -148,6 +149,7 @@ export class EmailAppointment extends Email {
                                     </td>
                                 </tr>
                             </tbody>
+                            <p style="font-size:8pt;color:lightgrey">${no_reply_footer}</p>
                         </table>
                     </body>`;
         super(to, subject, '', html);
