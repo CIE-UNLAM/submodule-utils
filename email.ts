@@ -12,6 +12,8 @@ let transporter = nodemailer.createTransport({
     },
 } as SMTPTransport.Options);
 
+let no_reply_footer = 'Este mail es generado automáticamente. Por favor, no responder'
+
 export class EmailManager {
     async send(input: Email): Promise<boolean | void> {
         return await transporter.sendMail({
@@ -82,6 +84,7 @@ export class EmailRecovery extends Email {
                                     </td>
                                 </tr>
                             </tbody>
+                            <p style="font-size:8pt;color:lightgrey">${no_reply_footer}</p>
                         </table>
                     </body>`;
         super(to, subject, '', html);
@@ -114,6 +117,7 @@ export class EmailWelcome extends Email {
                                     </td>
                                 </tr>
                             </tbody>
+                            <p style="font-size:8pt;color:lightgrey">${no_reply_footer}</p>
                         </table>
                     </body>`;
         super(to, subject, '', html);
@@ -145,6 +149,7 @@ export class EmailAppointment extends Email {
                                     </td>
                                 </tr>
                             </tbody>
+                            <p style="font-size:8pt;color:lightgrey">${no_reply_footer}</p>
                         </table>
                     </body>`;
         super(to, subject, '', html);
