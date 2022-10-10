@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import SMTPTransport from "nodemailer/lib/smtp-transport";
 import {Appointment} from "../models/appointment";
+import Logger from "./logger"
 
 let transporter = nodemailer.createTransport({
     host: process.env.SPARKPOST_HOST,
@@ -25,8 +26,7 @@ export class EmailManager {
         }).then(_ => {
             return true;
         }).catch((err) => {
-            console.log('an error occurred while sending the email:');
-            console.log(err);
+            Logger.error(`an error occurred while sending the email: ${err}`);
         });
     }
 }

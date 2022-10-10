@@ -1,5 +1,6 @@
 import {Response} from "express"
 import httpStatus from "http-status-codes";
+import Logger from "./logger"
 
 export class CustomResponse {
     public status: number;
@@ -36,7 +37,7 @@ export function sendHTTPError(res: Response, err: unknown) {
         // Generic exception
         error = new CustomError(httpStatus.INTERNAL_SERVER_ERROR, (<Error>err).message, <Error>err);
     }
-    console.log('Origin error -->', error.original);
+    Logger.error('Origin error -->', error.original);
     error.send(res);
 }
 

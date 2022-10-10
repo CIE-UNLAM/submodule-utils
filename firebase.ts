@@ -1,6 +1,7 @@
 import { App, applicationDefault, initializeApp } from "firebase-admin/app";
 import fireabaseAdmin from "firebase-admin";
 import { Message } from "firebase-admin/lib/messaging/messaging-api";
+import Logger from "./logger"
 
 /**
  * Firebase Cloud Messaging
@@ -19,7 +20,7 @@ export class FCM {
     FCM.instance = initializeApp({
       credential: applicationDefault(),
     });
-    console.log("FCM initialized");
+    Logger.info("FCM initialized");
   }
 
   public static async sendPushNotification(
