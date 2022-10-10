@@ -1,5 +1,6 @@
 import {Sequelize} from 'sequelize';
 import 'dotenv/config';
+import Logger from "./logger"
 
 export class DBManager {
     private static session: Sequelize;
@@ -16,7 +17,7 @@ export class DBManager {
         if (!this.session) {
             const url = process.env.DATABASE_URL || "";
             let sess = new Sequelize(url, {logging: true});
-            console.log("connecting to " + process.env.DATABASE_URL);
+            Logger.info(`connecting to ${process.env.DATABASE_URL}`);
             this.session = sess;
         }
     }
@@ -29,12 +30,12 @@ export class DBManager {
         try {
             await this.session.authenticate();
         } catch (err) {
-            console.log(err);
+            Logger.error(err);
             process.exit(1);
         }
-        console.log('db is connected ok!');
+        Logger.info('db is connected ok!');
         if (sync) {
-            console.log('sync db...');
+            Logger.info('sync db...');
             this.syncDB(afterSync);
         }
     }
@@ -43,7 +44,7 @@ export class DBManager {
     }) {
         if (this.session) {
             this.session.sync({alter: true}).then(ret => {
-                console.log('db was sync correct!');
+                Logger.info('db was sync correct!');
                 afterSync();
             });
         }
