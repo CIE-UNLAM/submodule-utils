@@ -143,7 +143,7 @@ export class EmailAppointment extends Email {
                                     <td style="padding:5%;color:#707070;font-family:Arial;font-size:11pt;border-spacing:0px;background-color:#F1F5F8;"
                                         valign="top">
                                         <p> Hola ${fullName}: </p>
-                                        <p> Tenes un nuevo turno asignado el dia ${appointment.date.toLocaleDateString()} a las ${appointment.date.toLocaleTimeString()} </p>
+                                        <p> Tenes un nuevo turno asignado el dia ${appointment.date.toLocaleDateString('es-AR')} a las ${appointment.date.toLocaleTimeString('es-AR')} </p>
                                     </td>
                                 </tr>
                                 <tr>
